@@ -1,0 +1,5 @@
+DUAS BIBLIOTECAS BASTANTES COMENTADAS: iText e PdfBox
+pedem a biblioteca de criptografia The Bounty Castle Provider
+
+
+
