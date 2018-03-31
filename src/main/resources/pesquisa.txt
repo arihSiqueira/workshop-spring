@@ -2,4 +2,13 @@ DUAS BIBLIOTECAS BASTANTES COMENTADAS: iText e PdfBox
 pedem a biblioteca de criptografia The Bounty Castle Provider
 
 
+Bibliografia:
+COnfiguration approach
+http://www.baeldung.com/spring-mvc-tutorial
+http://www.baeldung.com/spring-xml-vs-java-config
+Thymelaf config
+http://www.baeldung.com/thymeleaf-in-spring-mvc
+https://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html
+
+
 
