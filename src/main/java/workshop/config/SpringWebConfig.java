@@ -6,44 +6,55 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.resourceresolver.SpringResourceResourceResolver;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templatemode.StandardTemplateModeHandlers;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+import org.thymeleaf.templateresolver.TemplateResolver;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan({ "workshop" })
+@ComponentScan({ "workshop.controller",
+				 "workshop.config",
+				 "workshop.model"})
 public class SpringWebConfig {
 
-	@SuppressWarnings("unused")
-	private ApplicationContext applicationContext;
+	@Bean
+	public TemplateResolver templateResolver() {
+		TemplateResolver resolver = new TemplateResolver();
+		resolver.setResourceResolver(thymeleafResourceResolver());
+		resolver.setPrefix("classpath:/templates/");
+		resolver.setSuffix(".html");
+		resolver.setCacheable(false);
+		resolver.setCharacterEncoding("UTF-8");
+		return resolver;
+	}
 
-    public void setApplicationContext(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
-	 
 	@Bean
-	@Description("Thymeleaf Template Resolver")
-	public ServletContextTemplateResolver templateResolver() {
-	    ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
-	    templateResolver.setPrefix("/views/");
-	    templateResolver.setSuffix(".html");
-	    templateResolver.setCharacterEncoding("UTF-8");
-	    templateResolver.setTemplateMode("HTML5");
-	 
-	    return templateResolver;
+	public SpringResourceResourceResolver thymeleafResourceResolver() {
+		return new SpringResourceResourceResolver();
 	}
-	
-	@Bean
-	@Description("Thymeleaf Template Engine")
+
 	public SpringTemplateEngine templateEngine() {
-	    SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-	    templateEngine.setTemplateResolver(templateResolver());
-	    templateEngine.setTemplateEngineMessageSource(messageSource());
-	    return templateEngine;
+		SpringTemplateEngine engine = new SpringTemplateEngine();
+		engine.setTemplateResolver(templateResolver());
+		return engine;
 	}
-	
+
+	@Bean
+	public ViewResolver viewResolver() {
+		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+		viewResolver.setTemplateEngine(templateEngine());
+		viewResolver.setOrder(1);
+		viewResolver.setViewNames(new String[] { "*" });
+		viewResolver.setCache(false);
+		return viewResolver;
+	}
+
 	@Bean
     @Description("Spring Message Resolver")
     public ResourceBundleMessageSource messageSource() {
