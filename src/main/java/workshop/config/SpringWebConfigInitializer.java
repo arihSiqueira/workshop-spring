@@ -1,4 +1,4 @@
-package workshop.config;
+/*package workshop.config;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -14,15 +14,15 @@ public class SpringWebConfigInitializer implements WebApplicationInitializer {
 
 	@Override
 	public void onStartup(ServletContext container) throws ServletException {
-		/*Código para deixar sem web.xml mas utilizando xml para configurar spring*/
-		/*XmlWebApplicationContext context = new XmlWebApplicationContext();
+		Código para deixar sem web.xml mas utilizando xml para configurar spring
+		XmlWebApplicationContext context = new XmlWebApplicationContext();
         context.setConfigLocation("/WEB-INF/spring/dispatcher-config.xml");
  
         ServletRegistration.Dynamic dispatcher = container
           .addServlet("dispatcher", new DispatcherServlet(context));
  
         dispatcher.setLoadOnStartup(1);
-        dispatcher.addMapping("/");*/
+        dispatcher.addMapping("/");
         
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
         context.setConfigLocation("workshop.config");
@@ -40,3 +40,4 @@ public class SpringWebConfigInitializer implements WebApplicationInitializer {
 	
 
 }
+*/
